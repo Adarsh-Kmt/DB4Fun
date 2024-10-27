@@ -2,8 +2,6 @@ package frontend
 
 import (
 	"fmt"
-	"log"
-	"os"
 )
 
 type Condition struct {
@@ -34,7 +32,7 @@ func (t *Token) isEqual(t2 *Token) bool {
 }
 
 var (
-	logger = log.New(os.Stdout, "DB4Fun >> ", 0)
+// logger = log.New(os.Stdout, "DB4Fun >> ", 0)
 )
 
 func ParseSelectStatment(tokenArray []*Token) (statement *SelectStatement, err error) {
@@ -47,9 +45,9 @@ func ParseSelectStatment(tokenArray []*Token) (statement *SelectStatement, err e
 	}
 
 	index := 1
-	logger.Printf("started parsing columns at index %d", index)
+	//logger.Printf("started parsing columns at index %d", index)
 	index, columnArray, err = ParseColumns(index, tokenArray)
-	logger.Printf("finished parsing columns at index %d", index)
+	//logger.Printf("finished parsing columns at index %d", index)
 	if err != nil {
 		return nil, err
 	}
@@ -81,9 +79,9 @@ func ParseSelectStatment(tokenArray []*Token) (statement *SelectStatement, err e
 	}
 
 	index++
-	logger.Printf("started parsing conditions at index %d", index)
+	//logger.Printf("started parsing conditions at index %d", index)
 	index, conditionArray, err = ParseConditions(index, tokenArray)
-	logger.Printf("finished parsing conditions at index %d", index)
+	//logger.Printf("finished parsing conditions at index %d", index)
 	if err != nil {
 		return nil, err
 	}
@@ -100,19 +98,19 @@ func ParseConditions(index int, tokenArray []*Token) (newIndex int, conditionArr
 	currIndex := index
 	//logger.Printf("condition parsing begins at index %d", currIndex)
 	for currIndex < len(tokenArray) {
-		logger.Printf("new condition being parsed, starting from index %d", currIndex)
+		//logger.Printf("new condition being parsed, starting from index %d", currIndex)
 
 		newCondition := &Condition{}
 		for i := 0; i < 3; i++ {
 
 			if currIndex+i >= len(tokenArray) {
-				logger.Printf("index %d out of bound of token array with length %d", (currIndex + i), len(tokenArray))
+				//logger.Printf("index %d out of bound of token array with length %d", (currIndex + i), len(tokenArray))
 				return index, nil, fmt.Errorf("error : invalid select statement, missing / invalid condition after WHERE clause")
 			}
 			currToken := tokenArray[currIndex+i]
 			if i == 0 {
 				if currToken.TokenType != Identifier {
-					logger.Printf("index %d out of bound of token array with length %d", (currIndex + i), len(tokenArray))
+					//logger.Printf("index %d out of bound of token array with length %d", (currIndex + i), len(tokenArray))
 					return index, nil, fmt.Errorf("error at index %d : invalid column name", currToken.Position)
 				}
 				newCondition.Field1 = currToken
@@ -139,7 +137,7 @@ func ParseConditions(index int, tokenArray []*Token) (newIndex int, conditionArr
 		}
 
 		if SemicolonSymbolToken.isEqual(tokenArray[currIndex]) {
-			logger.Printf("finished parsing conditions at index %d", currIndex)
+			//logger.Printf("finished parsing conditions at index %d", currIndex)
 			return currIndex, conditionArray, nil
 		}
 		if !AndKeywordToken.isEqual(tokenArray[currIndex]) {
