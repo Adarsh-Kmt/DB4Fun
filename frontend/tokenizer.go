@@ -25,10 +25,11 @@ const (
 	IntoKeyword   KeywordType = "INTO"
 	ValuesKeyword KeywordType = "VALUES"
 	WhereKeyword  KeywordType = "WHERE"
+	AndKeyword    KeywordType = "AND"
 )
 
 var (
-	keywordArray     = []KeywordType{SelectKeyword, CreateKeyword, IntoKeyword, FromKeyword, TableKeyword, InsertKeyword, ValuesKeyword, WhereKeyword}
+	keywordArray     = []KeywordType{SelectKeyword, CreateKeyword, IntoKeyword, FromKeyword, TableKeyword, InsertKeyword, ValuesKeyword, WhereKeyword, AndKeyword}
 	SymbolArray      = []SymbolType{OpeningParenthSymbol, ClosingParenthSymbol, CommaSymbol, SemicolonSymbol, StarSymbol}
 	TwoOperatorArray = []OperatorType{GreaterThanEqualOperator, LesserThanEqualOperator, NotEqualOperator}
 	OneOperatorArray = []OperatorType{LesserThanOperator, GreaterThanOperator, EqualOperator}
