@@ -7,33 +7,47 @@ import (
 	"github.com/Adarsh-Kmt/DB4Fun/frontend"
 )
 
+var (
+	logger = log.New(os.Stdout, "DB4Fun >> ", 0)
+)
+
 func main() {
 
 	str := "SELECT first_name, last_name FROM user_table WHERE first_name = 'adarsh' AND last_name = 'kamath';"
-	logger := log.New(os.Stdout, "DB4Fun >> ", 0)
-	arr, err := frontend.Tokenizer(str)
+	tokenArray, err := frontend.Tokenizer(str)
 
 	if err != nil {
 		logger.Printf("%s", err.Error())
 		return
 	}
 
-	logger.Println()
-	logger.Println("-------- TOKENIZER -------")
-	logger.Println()
+	DisplayTokenizerOutput(tokenArray)
 
-	for ind, token := range arr {
-
-		logger.Printf("[ index : %d token code : %d , value :  %s  position : %d ]\n", ind, token.TokenType, token.Value, token.Position)
-	}
-	//logger.Println("END")
-
-	selectStatement, err := frontend.ParseSelectStatment(arr)
+	selectStatement, err := frontend.ParseSelectStatment(tokenArray)
 
 	if err != nil {
 		logger.Println(err.Error())
 		return
 	}
+
+	DisplayParserOutput(selectStatement)
+
+}
+
+func DisplayTokenizerOutput(tokenArray []*frontend.Token) {
+
+	logger.Println()
+	logger.Println("-------- TOKENIZER -------")
+	logger.Println()
+
+	for ind, token := range tokenArray {
+
+		logger.Printf("[ index : %d token code : %d , value :  %s  position : %d ]\n", ind, token.TokenType, token.Value, token.Position)
+	}
+}
+
+func DisplayParserOutput(selectStatement *frontend.SelectStatement) {
+
 	logger.Println()
 	logger.Println("---- SELECT STATEMENT ----")
 	logger.Println()
@@ -49,5 +63,4 @@ func main() {
 
 	logger.Println()
 	logger.Println("-------------------------")
-
 }
