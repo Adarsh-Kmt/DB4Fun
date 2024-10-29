@@ -41,20 +41,40 @@ func main() {
 			bTree := btree.BTreeInit(3)
 			ok := true
 			for ok {
+				logger.Print("1) enter 'insert' to insert item     2) enter 'search' to search for item")
+
+				option, err := scanner.ReadString('\n')
+				option = strings.TrimRight(option, "\r\n")
+				if err != nil {
+					continue
+				}
+
 				logger.Print("enter key : ")
 				key, err := scanner.ReadString('\n')
 				key = strings.TrimRight(key, "\r\n")
 				if err != nil {
 					return
 				}
-				logger.Print("enter value : ")
-				value, err := scanner.ReadString('\n')
-				value = strings.TrimRight(value, "\r\n")
-				if err != nil {
-					return
+				if option == "insert" {
+
+					logger.Print("enter value : ")
+					value, err := scanner.ReadString('\n')
+					value = strings.TrimRight(value, "\r\n")
+					if err != nil {
+						return
+					}
+					bTree.InsertItem(key, value)
+
+				} else {
+
+					value, found := bTree.SearchForItem(key)
+					if found {
+						logger.Printf("value for key %s = %s", key, value)
+					} else {
+						logger.Printf("key %s not found in btree.", key)
+					}
 				}
 
-				bTree.InsertItem(key, value)
 				logger.Print("continue? (Y/N)")
 
 				YNResponse, err := scanner.ReadString('\n')
@@ -110,9 +130,9 @@ func main() {
 	// 	bTree.InsertItem("2", "g")
 	// 	bTree.InsertItem("8", "h")
 	// 	bTree.InsertItem("7", "i")
-	// 	bTree.InsertItem("11", "i")
-	// 	bTree.InsertItem("1", "j")
-	// 	bTree.InsertItem("0", "k")
+	// 	bTree.InsertItem("11", "j")
+	// 	bTree.InsertItem("1", "k")
+	// 	bTree.InsertItem("0", "l")
 	// 	//backend.BTreeTraversal(bTree.Root)
 	// 	return
 	// }
