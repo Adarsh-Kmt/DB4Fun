@@ -20,7 +20,7 @@ func main() {
 	scanner := bufio.NewReader(os.Stdin)
 	fmt.Println("DB4Fun")
 	fmt.Println("1) enter 'exit' to exit terminal")
-	fmt.Println("2) enter 'test-btree' to test working of b tree with maximum 3 items per node.")
+	fmt.Println("2) enter 'test-btree' to test working of b tree with maximum 4 items per node.")
 	fmt.Println("3) enter 'test-frontend' to test SQL tokenizer and parser. ")
 	for {
 		logger.Print("enter input: ")
@@ -38,17 +38,27 @@ func main() {
 		if input == "test-btree" {
 
 			logger.Println("testing b-tree...")
-			bTree := btree.BTreeInit(3)
+			bTree := btree.BTreeInit(4)
+			bTree.BtreeSetup()
 			ok := true
 			for ok {
-				logger.Print("1) enter 'insert' to insert item     2) enter 'search' to search for item")
+				logger.Print("1) enter 'insert' to insert item    \n2) enter 'search' to search for item    \n3) enter 'delete' to delete an item    \n4) enter 'traverse' to traverse tree    \n5) enter 'exit' to exit")
 
 				option, err := scanner.ReadString('\n')
 				option = strings.TrimRight(option, "\r\n")
+
+				if option == "exit" {
+					ok = false
+					continue
+				}
 				if err != nil {
 					continue
 				}
 
+				if option == "traverse" {
+					btree.BTreeTraversal(bTree.Root)
+					continue
+				}
 				logger.Print("enter key : ")
 				key, err := scanner.ReadString('\n')
 				key = strings.TrimRight(key, "\r\n")
@@ -65,7 +75,7 @@ func main() {
 					}
 					bTree.InsertItem(key, value)
 
-				} else {
+				} else if option == "search" {
 
 					value, found := bTree.SearchForItem(key)
 					if found {
@@ -73,19 +83,18 @@ func main() {
 					} else {
 						logger.Printf("key %s not found in btree.", key)
 					}
+				} else if option == "delete" {
+
+					value, err := bTree.DeleteItem(key)
+
+					if err != nil {
+						logger.Printf(err.Error())
+					} else {
+						logger.Printf("key %s with value = %s was deleted", key, value)
+
+					}
 				}
 
-				logger.Print("continue? (Y/N)")
-
-				YNResponse, err := scanner.ReadString('\n')
-				YNResponse = strings.TrimRight(YNResponse, "\r\n")
-				if err != nil {
-					return
-				}
-
-				if strings.Compare(YNResponse, "N") == 0 {
-					ok = false
-				}
 			}
 		}
 		if input == "test-frontend" {
