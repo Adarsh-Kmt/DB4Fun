@@ -54,6 +54,29 @@ func BTreeInit(maxItems int) *BTree {
 	return bTree
 }
 
+func (bt *BTree) BtreeSetup() {
+
+	bt.InsertItem("7", "a")
+	bt.InsertItem("8", "b")
+	bt.InsertItem("9", "c")
+	bt.InsertItem("12", "d")
+	bt.InsertItem("13", "e")
+	bt.InsertItem("6", "f")
+	bt.InsertItem("5", "g")
+	bt.InsertItem("11", "h")
+	bt.InsertItem("10", "i")
+	bt.InsertItem("14", "j")
+	bt.InsertItem("4", "k")
+	bt.InsertItem("3", "l")
+	bt.InsertItem("2", "m")
+	bt.InsertItem("1", "n")
+	bt.InsertItem("0", "o")
+	bt.InsertItem("15", "p")
+	bt.InsertItem("16", "q")
+	bt.InsertItem("17", "r")
+
+	//bt.InsertItem("12", "m")
+}
 func (bt *BTree) InsertItem(key string, value string) *BTree {
 
 	// logger.Printf("-------------------------------------------------------")
@@ -327,7 +350,9 @@ func (nd *Node) DisplayChildNodes() {
 		for index2, item := range childNode.itemArray {
 			fmt.Printf("{ index %d --> key %s : value %s }, ", index2, item.key, item.value)
 		}
+		fmt.Printf("\n")
 	}
+
 }
 
 func (nd *Node) DisplayItemsInNode() {
@@ -335,4 +360,5 @@ func (nd *Node) DisplayItemsInNode() {
 	for ind, it := range nd.itemArray {
 		fmt.Printf("[ index : %d key : %s, value : %s ], ", ind, it.key, it.value)
 	}
+	fmt.Printf("\n")
 }
