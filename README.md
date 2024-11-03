@@ -4,14 +4,16 @@ Just another database.
 ## Frontend
 
 - [X] Tokenizer
-- [] Parser
-- [] Code Generator
+- [ ] Parser
+- [ ] Code Generator
 
 ## Backend
 - [x] B-Tree
-- [] Pager
-- [] OS Interface
+- [ ] Pager
+- [ ] OS Interface
 
 ## Architecture Diagram
 
-![Architecture Diagram](img\Database Architecture.gif)
+<p align="center">
+  <img src="img/Database%20Architecture.gif" alt="Architecture Diagram">
+</p>
