@@ -240,8 +240,8 @@ func (nd *Node) deleteItem(key int) (value string, adequate bool, found bool) {
 					/*
 
 						5) if either of the child nodes can lend an item, without themselves experiencing underflow,
-							then the parent/internal node borrows an item from the child node, and lends the separator to the underflow child node.
-							Any children belonging to the item lent to the parent node, is now shifted to the underflow child node.
+						then the parent/internal node borrows an item from the child node, and lends the separator to the underflow child node.
+						Any children belonging to the item lent to the parent node, is now shifted to the underflow child node.
 
 					*/
 
